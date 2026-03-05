@@ -1,29 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI Interview Evaluator</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg:       #0d0f18;
-      --surface:  #151824;
-      --card:     #1c2033;
-      --border:   #2a2f4a;
-      --accent:   #6c63ff;
-      --accent2:  #00d4aa;
-      --danger:   #ff5f7e;
-      --warn:     #ffc94a;
-      --text:     #e8eaf6;
-      --muted:    #8892b0;
-      --radius:   14px;
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    html { scroll-behavior: smooth; }
+    :root {
+      --bg: #0d0f18;
+      --surface: #151824;
+      --card: #1c2033;
+      --border: #2a2f4a;
+      --accent: #6c63ff;
+      --accent2: #00d4aa;
+      --danger: #ff5f7e;
+      --warn: #ffc94a;
+      --text: #e8eaf6;
+      --muted: #8892b0;
+      --radius: 14px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: 'Inter', sans-serif;
       background: var(--bg);
@@ -40,14 +51,23 @@
       align-items: center;
       gap: 14px;
     }
-    header .logo { font-size: 28px; }
-    header h1 { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.3px; }
+
+    header .logo {
+      font-size: 28px;
+    }
+
+    header h1 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
     header span {
       margin-left: auto;
       font-size: .8rem;
       color: var(--accent2);
-      background: rgba(0,212,170,.12);
-      border: 1px solid rgba(0,212,170,.3);
+      background: rgba(0, 212, 170, .12);
+      border: 1px solid rgba(0, 212, 170, .3);
       padding: 4px 12px;
       border-radius: 20px;
     }
@@ -68,6 +88,7 @@
       border-radius: 12px;
       border: 1px solid var(--border);
     }
+
     .tab {
       flex: 1;
       padding: 12px;
@@ -85,17 +106,39 @@
       justify-content: center;
       gap: 8px;
     }
+
     .tab.active {
       background: var(--accent);
       color: #fff;
-      box-shadow: 0 4px 20px rgba(108,99,255,.35);
+      box-shadow: 0 4px 20px rgba(108, 99, 255, .35);
     }
-    .tab:hover:not(.active) { color: var(--text); background: var(--card); }
+
+    .tab:hover:not(.active) {
+      color: var(--text);
+      background: var(--card);
+    }
 
     /* ── PANELS ── */
-    .panel { display: none; animation: fadeIn .25s ease; }
-    .panel.active { display: block; }
-    @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
+    .panel {
+      display: none;
+      animation: fadeIn .25s ease;
+    }
+
+    .panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
 
     /* ── CARD ── */
     .card {
@@ -105,11 +148,26 @@
       padding: 28px;
       margin-bottom: 20px;
     }
-    .card h2 { font-size: 1rem; font-weight: 600; margin-bottom: 18px; color: var(--text); }
+
+    .card h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 18px;
+      color: var(--text);
+    }
 
     /* ── FORM ELEMENTS ── */
-    label { display: block; font-size: .82rem; font-weight: 500; color: var(--muted); margin-bottom: 8px; }
-    input[type=text], textarea, select {
+    label {
+      display: block;
+      font-size: .82rem;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    input[type=text],
+    textarea,
+    select {
       width: 100%;
       background: var(--surface);
       border: 1px solid var(--border);
@@ -121,8 +179,18 @@
       outline: none;
       transition: border-color .2s;
     }
-    input[type=text]:focus, textarea:focus, select:focus { border-color: var(--accent); }
-    textarea { resize: vertical; min-height: 160px; line-height: 1.6; }
+
+    input[type=text]:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--accent);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 160px;
+      line-height: 1.6;
+    }
 
     /* ── DROP ZONE ── */
     .dropzone {
@@ -134,19 +202,36 @@
       transition: all .2s;
       background: var(--surface);
     }
-    .dropzone:hover, .dropzone.over {
+
+    .dropzone:hover,
+    .dropzone.over {
       border-color: var(--accent);
-      background: rgba(108,99,255,.07);
+      background: rgba(108, 99, 255, .07);
     }
-    .dropzone .icon { font-size: 2.4rem; margin-bottom: 12px; }
-    .dropzone p { color: var(--muted); font-size: .88rem; }
-    .dropzone strong { color: var(--text); }
-    .dropzone input { display: none; }
+
+    .dropzone .icon {
+      font-size: 2.4rem;
+      margin-bottom: 12px;
+    }
+
+    .dropzone p {
+      color: var(--muted);
+      font-size: .88rem;
+    }
+
+    .dropzone strong {
+      color: var(--text);
+    }
+
+    .dropzone input {
+      display: none;
+    }
+
     .file-chosen {
       margin-top: 14px;
       padding: 10px 16px;
-      background: rgba(0,212,170,.1);
-      border: 1px solid rgba(0,212,170,.3);
+      background: rgba(0, 212, 170, .1);
+      border: 1px solid rgba(0, 212, 170, .3);
       border-radius: 8px;
       font-size: .84rem;
       color: var(--accent2);
@@ -166,7 +251,11 @@
       transition: all .2s;
       margin-bottom: 10px;
     }
-    .example-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    .example-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
 
     /* ── SUBMIT BUTTON ── */
     .btn-submit {
@@ -187,11 +276,17 @@
       gap: 10px;
       letter-spacing: .2px;
     }
+
     .btn-submit:hover:not(:disabled) {
       transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(108,99,255,.4);
+      box-shadow: 0 8px 30px rgba(108, 99, 255, .4);
     }
-    .btn-submit:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+
+    .btn-submit:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+      transform: none;
+    }
 
     /* ── LOADING ── */
     #loading {
@@ -199,20 +294,37 @@
       text-align: center;
       padding: 48px;
     }
+
     .spinner {
-      width: 48px; height: 48px;
+      width: 48px;
+      height: 48px;
       border: 3px solid var(--border);
       border-top-color: var(--accent);
       border-radius: 50%;
       animation: spin 1s linear infinite;
       margin: 0 auto 20px;
     }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    #loading p { color: var(--muted); font-size: .9rem; }
-    #loading .step { color: var(--accent2); font-weight: 500; }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    #loading p {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    #loading .step {
+      color: var(--accent2);
+      font-weight: 500;
+    }
 
     /* ── RESULTS ── */
-    #results { display: none; }
+    #results {
+      display: none;
+    }
 
     .score-grid {
       display: grid;
@@ -220,6 +332,7 @@
       gap: 14px;
       margin-bottom: 24px;
     }
+
     .score-card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -227,13 +340,28 @@
       padding: 18px 14px;
       text-align: center;
     }
-    .score-card .label { font-size: .74rem; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 10px; }
-    .score-card .value { font-size: 2.2rem; font-weight: 800; }
+
+    .score-card .label {
+      font-size: .74rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      margin-bottom: 10px;
+    }
+
+    .score-card .value {
+      font-size: 2.2rem;
+      font-weight: 800;
+    }
+
     .score-card.overall {
       border-color: var(--accent);
-      background: rgba(108,99,255,.08);
+      background: rgba(108, 99, 255, .08);
     }
-    .score-card.overall .value { color: var(--accent); }
+
+    .score-card.overall .value {
+      color: var(--accent);
+    }
 
     .score-bar {
       display: flex;
@@ -241,10 +369,34 @@
       gap: 12px;
       margin-bottom: 10px;
     }
-    .score-bar .bar-label { font-size: .82rem; color: var(--muted); width: 120px; flex-shrink: 0; }
-    .score-bar .bar-track { flex: 1; background: var(--surface); border-radius: 99px; height: 7px; overflow: hidden; }
-    .score-bar .bar-fill { height: 100%; border-radius: 99px; transition: width 1s cubic-bezier(.4,0,.2,1); }
-    .score-bar .bar-val { font-size: .82rem; font-weight: 600; width: 30px; text-align: right; }
+
+    .score-bar .bar-label {
+      font-size: .82rem;
+      color: var(--muted);
+      width: 120px;
+      flex-shrink: 0;
+    }
+
+    .score-bar .bar-track {
+      flex: 1;
+      background: var(--surface);
+      border-radius: 99px;
+      height: 7px;
+      overflow: hidden;
+    }
+
+    .score-bar .bar-fill {
+      height: 100%;
+      border-radius: 99px;
+      transition: width 1s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .score-bar .bar-val {
+      font-size: .82rem;
+      font-weight: 600;
+      width: 30px;
+      text-align: right;
+    }
 
     .qa-block {
       background: var(--surface);
@@ -253,6 +405,7 @@
       margin-bottom: 14px;
       overflow: hidden;
     }
+
     .qa-header {
       padding: 14px 18px;
       display: flex;
@@ -262,18 +415,42 @@
       user-select: none;
       transition: background .2s;
     }
-    .qa-header:hover { background: rgba(255,255,255,.03); }
-    .qa-q { font-size: .9rem; font-weight: 600; flex: 1; }
+
+    .qa-header:hover {
+      background: rgba(255, 255, 255, .03);
+    }
+
+    .qa-q {
+      font-size: .9rem;
+      font-weight: 600;
+      flex: 1;
+    }
+
     .qa-badge {
       padding: 3px 10px;
       border-radius: 20px;
       font-size: .75rem;
       font-weight: 600;
     }
-    .qa-chevron { color: var(--muted); transition: transform .2s; font-size: 1rem; }
-    .qa-block.open .qa-chevron { transform: rotate(180deg); }
-    .qa-body { display: none; padding: 0 18px 18px; }
-    .qa-block.open .qa-body { display: block; }
+
+    .qa-chevron {
+      color: var(--muted);
+      transition: transform .2s;
+      font-size: 1rem;
+    }
+
+    .qa-block.open .qa-chevron {
+      transform: rotate(180deg);
+    }
+
+    .qa-body {
+      display: none;
+      padding: 0 18px 18px;
+    }
+
+    .qa-block.open .qa-body {
+      display: block;
+    }
 
     .answer-box {
       background: var(--card);
@@ -286,21 +463,47 @@
       line-height: 1.6;
     }
 
-    .feedback-section { margin-top: 14px; }
-    .feedback-section h4 { font-size: .8rem; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); margin-bottom: 8px; }
-    .chip-list { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
+    .feedback-section {
+      margin-top: 14px;
+    }
+
+    .feedback-section h4 {
+      font-size: .8rem;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .chip-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 14px;
+    }
+
     .chip {
       padding: 4px 12px;
       border-radius: 20px;
       font-size: .78rem;
       font-weight: 500;
     }
-    .chip.green { background: rgba(0,212,170,.12); color: var(--accent2); border: 1px solid rgba(0,212,170,.25); }
-    .chip.red { background: rgba(255,95,126,.1); color: var(--danger); border: 1px solid rgba(255,95,126,.25); }
+
+    .chip.green {
+      background: rgba(0, 212, 170, .12);
+      color: var(--accent2);
+      border: 1px solid rgba(0, 212, 170, .25);
+    }
+
+    .chip.red {
+      background: rgba(255, 95, 126, .1);
+      color: var(--danger);
+      border: 1px solid rgba(255, 95, 126, .25);
+    }
 
     .explanation-box {
-      background: rgba(108,99,255,.07);
-      border: 1px solid rgba(108,99,255,.2);
+      background: rgba(108, 99, 255, .07);
+      border: 1px solid rgba(108, 99, 255, .2);
       border-radius: 8px;
       padding: 14px;
       font-size: .84rem;
@@ -308,9 +511,10 @@
       color: var(--text);
       margin-bottom: 12px;
     }
+
     .improvement-box {
-      background: rgba(255,201,74,.07);
-      border: 1px solid rgba(255,201,74,.2);
+      background: rgba(255, 201, 74, .07);
+      border: 1px solid rgba(255, 201, 74, .2);
       border-radius: 8px;
       padding: 14px;
       font-size: .84rem;
@@ -321,8 +525,8 @@
     /* ── ERROR ── */
     #error-box {
       display: none;
-      background: rgba(255,95,126,.08);
-      border: 1px solid rgba(255,95,126,.3);
+      background: rgba(255, 95, 126, .08);
+      border: 1px solid rgba(255, 95, 126, .3);
       border-radius: 10px;
       padding: 18px 20px;
       color: var(--danger);
@@ -339,449 +543,478 @@
       margin-bottom: 14px;
     }
 
-    .row { display: flex; gap: 14px; }
-    .row > * { flex: 1; }
-    .field { margin-bottom: 18px; }
+    .row {
+      display: flex;
+      gap: 14px;
+    }
+
+    .row>* {
+      flex: 1;
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
   </style>
 </head>
+
 <body>
 
-<header>
-  <div class="logo">🎙️</div>
-  <h1>AI Interview Evaluator</h1>
-  <span>● Local · Ollama</span>
-</header>
+  <header>
+    <div class="logo">🎙️</div>
+    <h1>AI Interview Evaluator</h1>
+    <span>● Local · Ollama</span>
+  </header>
 
-<main>
+  <main>
 
-  <!-- Tabs -->
-  <div class="tabs">
-    <button class="tab active" onclick="switchTab('transcript')" id="tab-transcript">
-      📝 Paste Transcript
-    </button>
-    <button class="tab" onclick="switchTab('audio')" id="tab-audio">
-      🎵 Upload File
-    </button>
-    <button class="tab" onclick="switchTab('record')" id="tab-record">
-      🎙️ Live Record
-    </button>
-  </div>
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('transcript')" id="tab-transcript">
+        📝 Paste Transcript
+      </button>
+      <button class="tab" onclick="switchTab('audio')" id="tab-audio">
+        🎵 Upload File
+      </button>
+      <button class="tab" onclick="switchTab('record')" id="tab-record">
+        🎙️ Live Record
+      </button>
+    </div>
 
-  <!-- Error -->
-  <div id="error-box"></div>
+    <!-- Error -->
+    <div id="error-box"></div>
 
-  <!-- TRANSCRIPT PANEL -->
-  <div class="panel active" id="panel-transcript">
-    <div class="card">
-      <h2>Paste Interview Transcript</h2>
+    <!-- TRANSCRIPT PANEL -->
+    <div class="panel active" id="panel-transcript">
+      <div class="card">
+        <h2>Paste Interview Transcript</h2>
 
-      <div class="field">
-        <button class="example-btn" onclick="loadExample()">⚡ Load example transcript</button>
-        <label>Transcript <span style="color:var(--muted);font-weight:400">(format: "Interviewer: …" / "Candidate: …")</span></label>
-        <textarea id="transcript-input" placeholder="Interviewer: Can you explain what a REST API is?
+        <div class="field">
+          <button class="example-btn" onclick="loadExample()">⚡ Load example transcript</button>
+          <label>Transcript <span style="color:var(--muted);font-weight:400">(format: "Interviewer: …" / "Candidate:
+              …")</span></label>
+          <textarea id="transcript-input" placeholder="Interviewer: Can you explain what a REST API is?
 Candidate: Sure! REST API stands for Representational State Transfer..."></textarea>
-      </div>
+        </div>
 
-      <div class="row">
-        <div class="field">
-          <label>Job Role (optional)</label>
-          <input type="text" id="t-job-role" placeholder="e.g. Backend Engineer"/>
+        <div class="row">
+          <div class="field">
+            <label>Job Role (optional)</label>
+            <input type="text" id="t-job-role" placeholder="e.g. Backend Engineer" />
+          </div>
+        </div>
+
+        <button class="btn-submit" onclick="submitTranscript()" id="btn-t">
+          <span>🚀</span> Evaluate Transcript
+        </button>
+      </div>
+    </div>
+
+    <!-- AUDIO PANEL -->
+    <div class="panel" id="panel-audio">
+      <div class="card">
+        <h2>Upload Interview Audio/Video</h2>
+        <p style="font-size:.83rem;color:var(--muted);margin-bottom:20px;">
+          Export your recording from <strong style="color:var(--text)">Zoom · Google Meet · Teams</strong> — then upload
+          below.
+        </p>
+
+        <div class="dropzone" id="dropzone" onclick="document.getElementById('audio-file').click()">
+          <div class="icon">🎧</div>
+          <p><strong>Click to select</strong> or drag & drop your file</p>
+          <p style="margin-top:6px;font-size:.76rem;">Supports: .mp3 .mp4 .m4a .wav .webm .ogg .flac</p>
+          <input type="file" id="audio-file" accept=".mp3,.mp4,.m4a,.wav,.webm,.ogg,.flac"
+            onchange="fileSelected(this)" />
+          <div class="file-chosen" id="file-chosen">✅ <span id="file-name"></span></div>
+        </div>
+
+        <div class="row" style="margin-top:18px;">
+          <div class="field">
+            <label>Job Role (optional)</label>
+            <input type="text" id="a-job-role" placeholder="e.g. Backend Engineer" />
+          </div>
+          <div class="field">
+            <label>Whisper Model</label>
+            <select id="whisper-model">
+              <option value="tiny">tiny (fastest)</option>
+              <option value="base" selected>base (recommended)</option>
+              <option value="small">small (better accuracy)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label>Language</label>
+            <select id="a-language">
+              <option value="">✨ Auto-Detect</option>
+              <option value="en">English</option>
+              <option value="hi">Hindi (हिंदी)</option>
+              <option value="mr">Marathi (मराठी)</option>
+              <option value="bn">Bengali (বাংলা)</option>
+              <option value="ta">Tamil (தமிழ்)</option>
+              <option value="te">Telugu (తెలుగు)</option>
+              <option value="gu">Gujarati (ગુજરાતી)</option>
+              <option value="kn">Kannada (ಕನ್ನಡ)</option>
+              <option value="ml">Malayalam (മലയാളം)</option>
+              <option value="pa">Punjabi (ਪੰਜਾਬੀ)</option>
+              <option value="ur">Urdu (اردو)</option>
+              <option value="ar">Arabic (العربية)</option>
+              <option value="es">Spanish (Español)</option>
+              <option value="fr">French (Français)</option>
+              <option value="de">German (Deutsch)</option>
+              <option value="ja">Japanese (日本語)</option>
+              <option value="ko">Korean (한국어)</option>
+              <option value="zh">Chinese (中文)</option>
+              <option value="ru">Russian (Русский)</option>
+              <option value="pt">Portuguese (Português)</option>
+              <option value="it">Italian (Italiano)</option>
+              <option value="tr">Turkish (Türkçe)</option>
+              <option value="vi">Vietnamese (Tiếng Việt)</option>
+            </select>
+          </div>
+          <div class="field" style="display:flex; align-items:center; gap:10px; padding-top:25px;">
+            <input type="checkbox" id="a-translate" style="width:18px; height:18px;" />
+            <label style="margin:0;">Translate to English</label>
+          </div>
+        </div>
+
+        <button class="btn-submit" onclick="submitAudio()" id="btn-a">
+          <span>🚀</span> Transcribe &amp; Evaluate
+        </button>
+      </div>
+    </div>
+
+    <!-- RECORD PANEL -->
+    <div class="panel" id="panel-record">
+      <div class="card">
+        <h2>Interview Recorder</h2>
+        <p style="font-size:.83rem;color:var(--muted);margin-bottom:20px;">
+          Choose <strong>Mic Only</strong> to record yourself, or <strong>Meeting Mode</strong> to record a Zoom/Meet
+          window.
+        </p>
+
+        <div
+          style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:30px; text-align:center; margin-bottom:20px;">
+          <canvas id="waveform" width="600" height="100" style="width:100%; height:100px; margin-bottom:20px;"></canvas>
+          <div id="record-timer"
+            style="font-size:1.5rem; font-weight:700; color:var(--accent2); margin-bottom:10px; font-variant-numeric: tabular-nums;">
+            00:00</div>
+
+          <div style="display:flex; gap:15px; justify-content:center; margin-bottom:20px;">
+            <div id="mic-status"
+              style="font-size:.7rem; color:var(--muted); display:flex; align-items:center; gap:5px;">
+              <div style="width:8px; height:8px; background:#444; border-radius:50%;" id="mic-led"></div> MIC
+            </div>
+            <div id="sys-status"
+              style="font-size:.7rem; color:var(--muted); display:flex; align-items:center; gap:5px;">
+              <div style="width:8px; height:8px; background:#444; border-radius:50%;" id="sys-led"></div> SYSTEM AUDIO
+            </div>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:16px; align-items:center;">
+            <div style="display:flex; gap:12px; justify-content:center;">
+              <button id="start-record-mic" class="btn-submit"
+                style="width:auto; padding:12px 24px; background:var(--danger);" onclick="startRecording('mic')">
+                <span>🎤</span> Record Mic Only
+              </button>
+              <button id="start-record-meeting" class="btn-submit"
+                style="width:auto; padding:12px 24px; background:var(--accent);" onclick="startRecording('meeting')">
+                <span>🖥️</span> Record Meeting
+              </button>
+              <button id="stop-record" class="btn-submit"
+                style="width:auto; padding:12px 24px; background:var(--danger); display:none;"
+                onclick="stopRecording()">
+                <span>⏹️</span> Stop & Evaluate
+              </button>
+            </div>
+
+            <p id="meeting-tip" style="display:none; font-size:.75rem; color:var(--warn); max-width:400px;">
+              💡 <strong>IMPORTANT:</strong> In the popup, select the Zoom/Meet window and <strong>make sure "Share
+                Audio" is checked</strong> so the AI can hear the interviewer.
+            </p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label>Job Role (optional)</label>
+            <input type="text" id="r-job-role" placeholder="e.g. Backend Engineer" />
+          </div>
+          <div class="field">
+            <label>Language</label>
+            <select id="r-language">
+              <option value="">✨ Auto-Detect</option>
+              <option value="en">English</option>
+              <option value="hi">Hindi (हिंदी)</option>
+              <option value="mr">Marathi (मराठी)</option>
+              <option value="bn">Bengali (বাংলা)</option>
+              <option value="ta">Tamil (தமிழ்)</option>
+              <option value="te">Telugu (తెలుగు)</option>
+              <option value="gu">Gujarati (ગુજરાતી)</option>
+              <option value="kn">Kannada (ಕನ್ನಡ)</option>
+              <option value="ml">Malayalam (മലയാളം)</option>
+              <option value="pa">Punjabi (ਪੰਜਾਬੀ)</option>
+              <option value="ur">Urdu (اردو)</option>
+              <option value="ar">Arabic (العربية)</option>
+              <option value="es">Spanish (Español)</option>
+              <option value="fr">French (Français)</option>
+              <option value="de">German (Deutsch)</option>
+              <option value="ja">Japanese (日本語)</option>
+              <option value="ko">Korean (한국어)</option>
+              <option value="zh">Chinese (中文)</option>
+              <option value="ru">Russian (Русский)</option>
+              <option value="pt">Portuguese (Português)</option>
+              <option value="it">Italian (Italiano)</option>
+              <option value="tr">Turkish (Türkçe)</option>
+              <option value="vi">Vietnamese (Tiếng Việt)</option>
+            </select>
+          </div>
+          <div class="field" style="display:flex; align-items:center; gap:10px; padding-top:25px;">
+            <input type="checkbox" id="r-translate" style="width:18px; height:18px;" />
+            <label style="margin:0;">Auto-Translate</label>
+          </div>
         </div>
       </div>
-
-      <button class="btn-submit" onclick="submitTranscript()" id="btn-t">
-        <span>🚀</span> Evaluate Transcript
-      </button>
     </div>
-  </div>
 
-  <!-- AUDIO PANEL -->
-  <div class="panel" id="panel-audio">
-    <div class="card">
-      <h2>Upload Interview Audio/Video</h2>
-      <p style="font-size:.83rem;color:var(--muted);margin-bottom:20px;">
-        Export your recording from <strong style="color:var(--text)">Zoom · Google Meet · Teams</strong> — then upload below.
+    <!-- LOADING -->
+    <div id="loading">
+      <div class="spinner"></div>
+      <p class="step" id="loading-step">Processing…</p>
+      <p style="margin-top:6px;font-size:.8rem;">Mistral is evaluating · Llama is generating feedback</p>
+      <p style="margin-top:4px;font-size:.76rem;color:var(--muted);">This takes 30–90 seconds depending on your hardware
       </p>
-
-      <div class="dropzone" id="dropzone" onclick="document.getElementById('audio-file').click()">
-        <div class="icon">🎧</div>
-        <p><strong>Click to select</strong> or drag & drop your file</p>
-        <p style="margin-top:6px;font-size:.76rem;">Supports: .mp3 .mp4 .m4a .wav .webm .ogg .flac</p>
-        <input type="file" id="audio-file" accept=".mp3,.mp4,.m4a,.wav,.webm,.ogg,.flac" onchange="fileSelected(this)"/>
-        <div class="file-chosen" id="file-chosen">✅ <span id="file-name"></span></div>
-      </div>
-
-      <div class="row" style="margin-top:18px;">
-        <div class="field">
-          <label>Job Role (optional)</label>
-          <input type="text" id="a-job-role" placeholder="e.g. Backend Engineer"/>
-        </div>
-        <div class="field">
-          <label>Whisper Model</label>
-          <select id="whisper-model">
-            <option value="tiny">tiny  (fastest)</option>
-            <option value="base" selected>base  (recommended)</option>
-            <option value="small">small (better accuracy)</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="field">
-          <label>Language</label>
-          <select id="a-language">
-            <option value="">✨ Auto-Detect</option>
-            <option value="en">English</option>
-            <option value="hi">Hindi (हिंदी)</option>
-            <option value="mr">Marathi (मराठी)</option>
-            <option value="bn">Bengali (বাংলা)</option>
-            <option value="ta">Tamil (தமிழ்)</option>
-            <option value="te">Telugu (తెలుగు)</option>
-            <option value="gu">Gujarati (ગુજરાતી)</option>
-            <option value="kn">Kannada (ಕನ್ನಡ)</option>
-            <option value="ml">Malayalam (മലയാളം)</option>
-            <option value="pa">Punjabi (ਪੰਜਾਬੀ)</option>
-            <option value="ur">Urdu (اردو)</option>
-            <option value="ar">Arabic (العربية)</option>
-            <option value="es">Spanish (Español)</option>
-            <option value="fr">French (Français)</option>
-            <option value="de">German (Deutsch)</option>
-            <option value="ja">Japanese (日本語)</option>
-            <option value="ko">Korean (한국어)</option>
-            <option value="zh">Chinese (中文)</option>
-            <option value="ru">Russian (Русский)</option>
-            <option value="pt">Portuguese (Português)</option>
-            <option value="it">Italian (Italiano)</option>
-            <option value="tr">Turkish (Türkçe)</option>
-            <option value="vi">Vietnamese (Tiếng Việt)</option>
-          </select>
-        </div>
-        <div class="field" style="display:flex; align-items:center; gap:10px; padding-top:25px;">
-          <input type="checkbox" id="a-translate" style="width:18px; height:18px;"/>
-          <label style="margin:0;">Translate to English</label>
-        </div>
-      </div>
-
-      <button class="btn-submit" onclick="submitAudio()" id="btn-a">
-        <span>🚀</span> Transcribe &amp; Evaluate
-      </button>
     </div>
-  </div>
-
-  <!-- RECORD PANEL -->
-  <div class="panel" id="panel-record">
-    <div class="card">
-      <h2>Interview Recorder</h2>
-      <p style="font-size:.83rem;color:var(--muted);margin-bottom:20px;">
-        Choose <strong>Mic Only</strong> to record yourself, or <strong>Meeting Mode</strong> to record a Zoom/Meet window.
-      </p>
-
-      <div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:30px; text-align:center; margin-bottom:20px;">
-        <canvas id="waveform" width="600" height="100" style="width:100%; height:100px; margin-bottom:20px;"></canvas>
-        <div id="record-timer" style="font-size:1.5rem; font-weight:700; color:var(--accent2); margin-bottom:10px; font-variant-numeric: tabular-nums;">00:00</div>
-        
-        <div style="display:flex; gap:15px; justify-content:center; margin-bottom:20px;">
-          <div id="mic-status" style="font-size:.7rem; color:var(--muted); display:flex; align-items:center; gap:5px;">
-            <div style="width:8px; height:8px; background:#444; border-radius:50%;" id="mic-led"></div> MIC
-          </div>
-          <div id="sys-status" style="font-size:.7rem; color:var(--muted); display:flex; align-items:center; gap:5px;">
-            <div style="width:8px; height:8px; background:#444; border-radius:50%;" id="sys-led"></div> SYSTEM AUDIO
-          </div>
-        </div>
-        
-        <div style="display:flex; flex-direction:column; gap:16px; align-items:center;">
-          <div style="display:flex; gap:12px; justify-content:center;">
-            <button id="start-record-mic" class="btn-submit" style="width:auto; padding:12px 24px; background:var(--danger);" onclick="startRecording('mic')">
-              <span>🎤</span> Record Mic Only
-            </button>
-            <button id="start-record-meeting" class="btn-submit" style="width:auto; padding:12px 24px; background:var(--accent);" onclick="startRecording('meeting')">
-              <span>🖥️</span> Record Meeting
-            </button>
-            <button id="stop-record" class="btn-submit" style="width:auto; padding:12px 24px; background:var(--danger); display:none;" onclick="stopRecording()">
-              <span>⏹️</span> Stop & Evaluate
-            </button>
-          </div>
-          
-          <p id="meeting-tip" style="display:none; font-size:.75rem; color:var(--warn); max-width:400px;">
-            💡 <strong>IMPORTANT:</strong> In the popup, select the Zoom/Meet window and <strong>make sure "Share Audio" is checked</strong> so the AI can hear the interviewer.
-          </p>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="field">
-          <label>Job Role (optional)</label>
-          <input type="text" id="r-job-role" placeholder="e.g. Backend Engineer"/>
-        </div>
-        <div class="field">
-          <label>Language</label>
-          <select id="r-language">
-            <option value="">✨ Auto-Detect</option>
-            <option value="en">English</option>
-            <option value="hi">Hindi (हिंदी)</option>
-            <option value="mr">Marathi (मराठी)</option>
-            <option value="bn">Bengali (বাংলা)</option>
-            <option value="ta">Tamil (தமிழ்)</option>
-            <option value="te">Telugu (తెలుగు)</option>
-            <option value="gu">Gujarati (ગુજરાતી)</option>
-            <option value="kn">Kannada (ಕನ್ನಡ)</option>
-            <option value="ml">Malayalam (മലയാളം)</option>
-            <option value="pa">Punjabi (ਪੰਜਾਬੀ)</option>
-            <option value="ur">Urdu (اردو)</option>
-            <option value="ar">Arabic (العربية)</option>
-            <option value="es">Spanish (Español)</option>
-            <option value="fr">French (Français)</option>
-            <option value="de">German (Deutsch)</option>
-            <option value="ja">Japanese (日本語)</option>
-            <option value="ko">Korean (한국어)</option>
-            <option value="zh">Chinese (中文)</option>
-            <option value="ru">Russian (Русский)</option>
-            <option value="pt">Portuguese (Português)</option>
-            <option value="it">Italian (Italiano)</option>
-            <option value="tr">Turkish (Türkçe)</option>
-            <option value="vi">Vietnamese (Tiếng Việt)</option>
-          </select>
-        </div>
-        <div class="field" style="display:flex; align-items:center; gap:10px; padding-top:25px;">
-          <input type="checkbox" id="r-translate" style="width:18px; height:18px;"/>
-          <label style="margin:0;">Auto-Translate</label>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- LOADING -->
-  <div id="loading">
-    <div class="spinner"></div>
-    <p class="step" id="loading-step">Processing…</p>
-    <p style="margin-top:6px;font-size:.8rem;">Mistral is evaluating · Llama is generating feedback</p>
-    <p style="margin-top:4px;font-size:.76rem;color:var(--muted);">This takes 30–90 seconds depending on your hardware</p>
-  </div>
 
     <div id="results">
       <div class="card">
         <div style="display:flex; justify-content:space-between; align-items:center;">
           <p class="section-title">Overall Scores</p>
-          <span id="detected-lang-badge" style="font-size:.7rem; color:var(--accent2); background:rgba(0,212,170,.1); padding:2px 8px; border-radius:4px; display:none;">
+          <span id="detected-lang-badge"
+            style="font-size:.7rem; color:var(--accent2); background:rgba(0,212,170,.1); padding:2px 8px; border-radius:4px; display:none;">
             Detected: <span id="detected-lang"></span>
           </span>
         </div>
         <div class="score-grid" id="score-grid"></div>
 
-      <div id="score-bars"></div>
+        <div id="score-bars"></div>
+      </div>
+
+      <div class="card">
+        <p class="section-title">Summary Feedback</p>
+        <div id="summary-strengths"></div>
+        <div id="summary-mistakes"></div>
+        <div id="summary-improvement"></div>
+      </div>
+
+      <div class="card">
+        <p class="section-title">Question-by-Question Breakdown</p>
+        <div id="qa-list"></div>
+      </div>
+
+      <button class="btn-submit"
+        style="max-width:260px;margin:0 auto;background:linear-gradient(135deg,#2a2f4a,#1c2033);border:1px solid var(--border);"
+        onclick="resetUI()">
+        ← Evaluate Another
+      </button>
     </div>
 
-    <div class="card">
-      <p class="section-title">Summary Feedback</p>
-      <div id="summary-strengths"></div>
-      <div id="summary-mistakes"></div>
-      <div id="summary-improvement"></div>
-    </div>
+  </main>
 
-    <div class="card">
-      <p class="section-title">Question-by-Question Breakdown</p>
-      <div id="qa-list"></div>
-    </div>
+  <script>
+    // Use current origin so it works on both localhost and deployed (Render/HuggingFace)
+    const API = window.location.origin;
 
-    <button class="btn-submit" style="max-width:260px;margin:0 auto;background:linear-gradient(135deg,#2a2f4a,#1c2033);border:1px solid var(--border);" onclick="resetUI()">
-      ← Evaluate Another
-    </button>
-  </div>
-
-</main>
-
-<script>
-const API = 'http://localhost:8000';
-
-// ── TAB SWITCHING ──────────────────────────────────────
-function switchTab(t) {
-  ['transcript','audio','record'].forEach(id => {
-    document.getElementById('panel-'+id).classList.toggle('active', id===t);
-    document.getElementById('tab-'+id).classList.toggle('active', id===t);
-  });
-}
-
-// ── LIVE RECORDING ────────────────────────────────────
-let mediaRecorder;
-let audioChunks = [];
-let recordingStartTime;
-let timerInterval;
-let audioContext;
-let analyzer;
-let animationFrame;
-
-async function startRecording(mode) {
-  audioChunks = [];
-  try {
-    let stream;
-    if (mode === 'meeting') {
-      // Request screen share with audio
-      stream = await navigator.mediaDevices.getDisplayMedia({
-        video: true,
-        audio: true
+    // ── TAB SWITCHING ──────────────────────────────────────
+    function switchTab(t) {
+      ['transcript', 'audio', 'record'].forEach(id => {
+        document.getElementById('panel-' + id).classList.toggle('active', id === t);
+        document.getElementById('tab-' + id).classList.toggle('active', id === t);
       });
-      document.getElementById('meeting-tip').style.display = 'block';
-      
-      if (stream.getAudioTracks().length > 0) {
-        document.getElementById('sys-led').style.background = '#00d4aa';
-        document.getElementById('sys-status').style.color = '#fff';
-      }
+    }
 
-      // Optional: Add mic stream on top of meeting audio
+    // ── LIVE RECORDING ────────────────────────────────────
+    let mediaRecorder;
+    let audioChunks = [];
+    let recordingStartTime;
+    let timerInterval;
+    let audioContext;
+    let analyzer;
+    let animationFrame;
+
+    async function startRecording(mode) {
+      audioChunks = [];
       try {
-        const micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        document.getElementById('mic-led').style.background = '#00d4aa';
-        document.getElementById('mic-status').style.color = '#fff';
-        
-        const ctx = new (window.AudioContext || window.webkitAudioContext)();
-        const dest = ctx.createMediaStreamDestination();
-        
-        ctx.createMediaStreamSource(stream).connect(dest);
-        ctx.createMediaStreamSource(micStream).connect(dest);
-        
-        // Replace stream with the merged one
-        stream = dest.stream;
-      } catch(e) { console.log("Mic mixing failed"); }
+        let stream;
+        if (mode === 'meeting') {
+          // Request screen share with audio
+          stream = await navigator.mediaDevices.getDisplayMedia({
+            video: true,
+            audio: true
+          });
+          document.getElementById('meeting-tip').style.display = 'block';
 
-    } else {
-      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      document.getElementById('mic-led').style.background = '#00d4aa';
-      document.getElementById('mic-status').style.color = '#fff';
-      document.getElementById('meeting-tip').style.display = 'none';
+          if (stream.getAudioTracks().length > 0) {
+            document.getElementById('sys-led').style.background = '#00d4aa';
+            document.getElementById('sys-status').style.color = '#fff';
+          }
+
+          // Optional: Add mic stream on top of meeting audio
+          try {
+            const micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            document.getElementById('mic-led').style.background = '#00d4aa';
+            document.getElementById('mic-status').style.color = '#fff';
+
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const dest = ctx.createMediaStreamDestination();
+
+            ctx.createMediaStreamSource(stream).connect(dest);
+            ctx.createMediaStreamSource(micStream).connect(dest);
+
+            // Replace stream with the merged one
+            stream = dest.stream;
+          } catch (e) { console.log("Mic mixing failed"); }
+
+        } else {
+          stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          document.getElementById('mic-led').style.background = '#00d4aa';
+          document.getElementById('mic-status').style.color = '#fff';
+          document.getElementById('meeting-tip').style.display = 'none';
+        }
+
+        // Setup visualizer
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const source = audioContext.createMediaStreamSource(stream);
+        analyzer = audioContext.createAnalyser();
+        analyzer.fftSize = 256;
+        source.connect(analyzer);
+        drawWaveform();
+
+        mediaRecorder = new MediaRecorder(stream);
+        mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+        mediaRecorder.onstop = () => {
+          const blob = new Blob(audioChunks, { type: 'audio/webm' });
+          const file = new File([blob], "interview_recording.webm", { type: 'audio/webm' });
+          submitRecordedFile(file);
+
+          // Stop all tracks
+          stream.getTracks().forEach(track => track.stop());
+          if (audioContext && audioContext.state !== 'closed') audioContext.close();
+          cancelAnimationFrame(animationFrame);
+        };
+
+        mediaRecorder.start();
+        recordingStartTime = Date.now();
+        updateTimer();
+        timerInterval = setInterval(updateTimer, 1000);
+
+        document.getElementById('start-record-mic').style.display = 'none';
+        document.getElementById('start-record-meeting').style.display = 'none';
+        document.getElementById('stop-record').style.display = 'flex';
+        hideError();
+      } catch (err) {
+        showError("Could not start recording. " + (mode === 'meeting' ? "Did you cancel the screen share?" : "Mic access denied.") + " " + err.message);
+      }
     }
-    
-    // Setup visualizer
-    audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const source = audioContext.createMediaStreamSource(stream);
-    analyzer = audioContext.createAnalyser();
-    analyzer.fftSize = 256;
-    source.connect(analyzer);
-    drawWaveform();
 
-    mediaRecorder = new MediaRecorder(stream);
-    mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
-    mediaRecorder.onstop = () => {
-      const blob = new Blob(audioChunks, { type: 'audio/webm' });
-      const file = new File([blob], "interview_recording.webm", { type: 'audio/webm' });
-      submitRecordedFile(file);
-      
-      // Stop all tracks
-      stream.getTracks().forEach(track => track.stop());
-      if (audioContext && audioContext.state !== 'closed') audioContext.close();
-      cancelAnimationFrame(animationFrame);
-    };
-
-    mediaRecorder.start();
-    recordingStartTime = Date.now();
-    updateTimer();
-    timerInterval = setInterval(updateTimer, 1000);
-
-    document.getElementById('start-record-mic').style.display = 'none';
-    document.getElementById('start-record-meeting').style.display = 'none';
-    document.getElementById('stop-record').style.display = 'flex';
-    hideError();
-  } catch (err) {
-    showError("Could not start recording. " + (mode === 'meeting' ? "Did you cancel the screen share?" : "Mic access denied.") + " " + err.message);
-  }
-}
-
-function stopRecording() {
-  if (mediaRecorder && mediaRecorder.state === 'recording') {
-    mediaRecorder.stop();
-    clearInterval(timerInterval);
-    document.getElementById('start-record-mic').style.display = 'flex';
-    document.getElementById('start-record-meeting').style.display = 'flex';
-    document.getElementById('stop-record').style.display = 'none';
-    document.getElementById('meeting-tip').style.display = 'none';
-    document.getElementById('mic-led').style.background = '#444';
-    document.getElementById('sys-led').style.background = '#444';
-    document.getElementById('mic-status').style.color = 'var(--muted)';
-    document.getElementById('sys-status').style.color = 'var(--muted)';
-    document.getElementById('record-timer').textContent = "00:00";
-  }
-}
-
-function updateTimer() {
-  const diff = Math.floor((Date.now() - recordingStartTime) / 1000);
-  const mins = Math.floor(diff / 60).toString().padStart(2, '0');
-  const secs = (diff % 60).toString().padStart(2, '0');
-  document.getElementById('record-timer').textContent = `${mins}:${secs}`;
-}
-
-function drawWaveform() {
-  const canvas = document.getElementById('waveform');
-  const ctx = canvas.getContext('2d');
-  const bufferLength = analyzer.frequencyBinCount;
-  const dataArray = new Uint8Array(bufferLength);
-
-  function draw() {
-    animationFrame = requestAnimationFrame(draw);
-    analyzer.getByteFrequencyData(dataArray);
-
-    ctx.fillStyle = '#151824';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    const barWidth = (canvas.width / bufferLength) * 2.5;
-    let x = 0;
-
-    for (let i = 0; i < bufferLength; i++) {
-      const barHeight = (dataArray[i] / 255) * canvas.height;
-      ctx.fillStyle = `rgb(108, 99, ${dataArray[i] + 100})`;
-      ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
-      x += barWidth + 1;
+    function stopRecording() {
+      if (mediaRecorder && mediaRecorder.state === 'recording') {
+        mediaRecorder.stop();
+        clearInterval(timerInterval);
+        document.getElementById('start-record-mic').style.display = 'flex';
+        document.getElementById('start-record-meeting').style.display = 'flex';
+        document.getElementById('stop-record').style.display = 'none';
+        document.getElementById('meeting-tip').style.display = 'none';
+        document.getElementById('mic-led').style.background = '#444';
+        document.getElementById('sys-led').style.background = '#444';
+        document.getElementById('mic-status').style.color = 'var(--muted)';
+        document.getElementById('sys-status').style.color = 'var(--muted)';
+        document.getElementById('record-timer').textContent = "00:00";
+      }
     }
-  }
-  draw();
-}
 
-async function submitRecordedFile(file) {
-  const formData = new FormData();
-  formData.append('file', file);
-  const job_role = document.getElementById('r-job-role').value.trim();
-  if (job_role) formData.append('job_role', job_role);
-  formData.append('whisper_model', 'base');
-  
-  const lang = document.getElementById('r-language').value;
-  if (lang) formData.append('language', lang);
-  formData.append('translate', document.getElementById('r-translate').checked);
+    function updateTimer() {
+      const diff = Math.floor((Date.now() - recordingStartTime) / 1000);
+      const mins = Math.floor(diff / 60).toString().padStart(2, '0');
+      const secs = (diff % 60).toString().padStart(2, '0');
+      document.getElementById('record-timer').textContent = `${mins}:${secs}`;
+    }
 
-  setLoading(true, 'Processing live recording…');
-  try {
-    const res = await fetch(API + '/evaluate-audio', {
-      method: 'POST',
-      body: formData
+    function drawWaveform() {
+      const canvas = document.getElementById('waveform');
+      const ctx = canvas.getContext('2d');
+      const bufferLength = analyzer.frequencyBinCount;
+      const dataArray = new Uint8Array(bufferLength);
+
+      function draw() {
+        animationFrame = requestAnimationFrame(draw);
+        analyzer.getByteFrequencyData(dataArray);
+
+        ctx.fillStyle = '#151824';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        const barWidth = (canvas.width / bufferLength) * 2.5;
+        let x = 0;
+
+        for (let i = 0; i < bufferLength; i++) {
+          const barHeight = (dataArray[i] / 255) * canvas.height;
+          ctx.fillStyle = `rgb(108, 99, ${dataArray[i] + 100})`;
+          ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+          x += barWidth + 1;
+        }
+      }
+      draw();
+    }
+
+    async function submitRecordedFile(file) {
+      const formData = new FormData();
+      formData.append('file', file);
+      const job_role = document.getElementById('r-job-role').value.trim();
+      if (job_role) formData.append('job_role', job_role);
+      formData.append('whisper_model', 'base');
+
+      const lang = document.getElementById('r-language').value;
+      if (lang) formData.append('language', lang);
+      formData.append('translate', document.getElementById('r-translate').checked);
+
+      setLoading(true, 'Processing live recording…');
+      try {
+        const res = await fetch(API + '/evaluate-audio', {
+          method: 'POST',
+          body: formData
+        });
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.detail || `HTTP ${res.status}`);
+        }
+        renderResults(await res.json());
+      } catch (e) {
+        showError(e.message);
+        setLoading(false);
+      }
+    }
+    const dz = document.getElementById('dropzone');
+    dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('over'); });
+    dz.addEventListener('dragleave', () => dz.classList.remove('over'));
+    dz.addEventListener('drop', e => {
+      e.preventDefault();
+      dz.classList.remove('over');
+      const f = e.dataTransfer.files[0];
+      if (f) { document.getElementById('audio-file').files = e.dataTransfer.files; fileSelected({ files: [f] }); }
     });
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.detail || `HTTP ${res.status}`);
+
+    function fileSelected(input) {
+      const f = input.files[0];
+      if (!f) return;
+      document.getElementById('file-name').textContent = f.name + ' (' + (f.size / 1024 / 1024).toFixed(1) + ' MB)';
+      document.getElementById('file-chosen').style.display = 'block';
     }
-    renderResults(await res.json());
-  } catch(e) {
-    showError(e.message);
-    setLoading(false);
-  }
-}
-const dz = document.getElementById('dropzone');
-dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('over'); });
-dz.addEventListener('dragleave', () => dz.classList.remove('over'));
-dz.addEventListener('drop', e => {
-  e.preventDefault();
-  dz.classList.remove('over');
-  const f = e.dataTransfer.files[0];
-  if (f) { document.getElementById('audio-file').files = e.dataTransfer.files; fileSelected({files:[f]}); }
-});
 
-function fileSelected(input) {
-  const f = input.files[0];
-  if (!f) return;
-  document.getElementById('file-name').textContent = f.name + ' (' + (f.size/1024/1024).toFixed(1) + ' MB)';
-  document.getElementById('file-chosen').style.display = 'block';
-}
-
-// ── EXAMPLE TRANSCRIPT ────────────────────────────────
-function loadExample() {
-  document.getElementById('transcript-input').value =
-`Interviewer: Can you explain what a REST API is and how it works?
+    // ── EXAMPLE TRANSCRIPT ────────────────────────────────
+    function loadExample() {
+      document.getElementById('transcript-input').value =
+        `Interviewer: Can you explain what a REST API is and how it works?
 Candidate: Sure! REST stands for Representational State Transfer. It's an architectural style for building web services. The key principle is that it's stateless, meaning the server doesn't store any client session information between requests. Each request must contain all the information needed. REST uses standard HTTP methods: GET for reading data, POST for creating, PUT for updating, and DELETE for removing resources. Resources are identified by URLs - for example /users/123 would refer to user with ID 123. Responses are typically in JSON format.
 
 Interviewer: What is the difference between SQL and NoSQL databases?
@@ -789,148 +1022,148 @@ Candidate: SQL databases are relational, they use tables with rows and columns a
 
 Interviewer: How would you handle a memory leak in a Node.js application?
 Candidate: I would first use tools like node inspect or Chrome DevTools to take heap snapshots and identify what's consuming memory. Common causes are event listeners that aren't removed, global variables holding references, or closures capturing large objects. I'd look at the heap profile to find objects that keep growing. Then fix by properly removing event listeners using removeEventListener, avoiding global state, and using weak references where appropriate.`;
-  document.getElementById('t-job-role').value = 'Backend Engineer';
-}
-
-// ── SUBMIT TRANSCRIPT ────────────────────────────────
-async function submitTranscript() {
-  const transcript = document.getElementById('transcript-input').value.trim();
-  if (!transcript) { showError('Please paste a transcript or load the example.'); return; }
-  const job_role = document.getElementById('t-job-role').value.trim() || null;
-
-  setLoading(true, 'Extracting Q&A pairs and running evaluation…');
-  try {
-    const res = await fetch(API + '/evaluate-transcript', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ transcript, job_role })
-    });
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.detail || `HTTP ${res.status}`);
+      document.getElementById('t-job-role').value = 'Backend Engineer';
     }
-    renderResults(await res.json());
-  } catch(e) {
-    showError(e.message);
-    setLoading(false);
-  }
-}
 
-// ── SUBMIT AUDIO ─────────────────────────────────────
-async function submitAudio() {
-  const fileInput = document.getElementById('audio-file');
-  if (!fileInput.files.length) { showError('Please select an audio file first.'); return; }
+    // ── SUBMIT TRANSCRIPT ────────────────────────────────
+    async function submitTranscript() {
+      const transcript = document.getElementById('transcript-input').value.trim();
+      if (!transcript) { showError('Please paste a transcript or load the example.'); return; }
+      const job_role = document.getElementById('t-job-role').value.trim() || null;
 
-  const formData = new FormData();
-  formData.append('file', fileInput.files[0]);
-  const job_role = document.getElementById('a-job-role').value.trim();
-  if (job_role) formData.append('job_role', job_role);
-  formData.append('whisper_model', document.getElementById('whisper-model').value);
-  
-  const lang = document.getElementById('a-language').value;
-  if (lang) formData.append('language', lang);
-  formData.append('translate', document.getElementById('a-translate').checked);
-
-  setLoading(true, 'Transcribing audio with Whisper…');
-
-  // Update loading message after a delay
-  setTimeout(() => {
-    const el = document.getElementById('loading-step');
-    if (el) el.textContent = 'Evaluating with Mistral + Llama…';
-  }, 15000);
-
-  try {
-    const res = await fetch(API + '/evaluate-audio', {
-      method: 'POST',
-      body: formData
-    });
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.detail || `HTTP ${res.status}`);
+      setLoading(true, 'Extracting Q&A pairs and running evaluation…');
+      try {
+        const res = await fetch(API + '/evaluate-transcript', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ transcript, job_role })
+        });
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.detail || `HTTP ${res.status}`);
+        }
+        renderResults(await res.json());
+      } catch (e) {
+        showError(e.message);
+        setLoading(false);
+      }
     }
-    renderResults(await res.json());
-  } catch(e) {
-    showError(e.message);
-    setLoading(false);
-  }
-}
 
-// ── RENDER RESULTS ────────────────────────────────────
-function renderResults(data) {
-  setLoading(false);
-  hideError();
-  document.querySelector('.tabs').style.display = 'none';
-  document.querySelectorAll('.panel').forEach(p => p.style.display = 'none');
-  document.getElementById('results').style.display = 'block';
+    // ── SUBMIT AUDIO ─────────────────────────────────────
+    async function submitAudio() {
+      const fileInput = document.getElementById('audio-file');
+      if (!fileInput.files.length) { showError('Please select an audio file first.'); return; }
 
-  // Language badge
-  const langBadge = document.getElementById('detected-lang-badge');
-  const langLabel = document.getElementById('detected-lang');
-  if (data.language_detected && data.language_detected !== 'manual') {
-    langBadge.style.display = 'block';
-    langLabel.textContent = data.language_detected.toUpperCase();
-  } else {
-    langBadge.style.display = 'none';
-  }
+      const formData = new FormData();
+      formData.append('file', fileInput.files[0]);
+      const job_role = document.getElementById('a-job-role').value.trim();
+      if (job_role) formData.append('job_role', job_role);
+      formData.append('whisper_model', document.getElementById('whisper-model').value);
 
-  const s = data.scores;
+      const lang = document.getElementById('a-language').value;
+      if (lang) formData.append('language', lang);
+      formData.append('translate', document.getElementById('a-translate').checked);
 
-  // Score cards
-  const grid = document.getElementById('score-grid');
-  grid.innerHTML = '';
-  const cats = [
-    { key: 'overall',       label: 'Overall',         cls: 'overall' },
-    { key: 'technical',     label: 'Technical',       cls: '' },
-    { key: 'problem_solving', label: 'Problem Solving', cls: '' },
-    { key: 'communication', label: 'Communication',   cls: '' },
-    { key: 'confidence',    label: 'Confidence',      cls: '' },
-  ];
-  cats.forEach(c => {
-    const val = s[c.key] ?? 0;
-    grid.innerHTML += `
+      setLoading(true, 'Transcribing audio with Whisper…');
+
+      // Update loading message after a delay
+      setTimeout(() => {
+        const el = document.getElementById('loading-step');
+        if (el) el.textContent = 'Evaluating with Mistral + Llama…';
+      }, 15000);
+
+      try {
+        const res = await fetch(API + '/evaluate-audio', {
+          method: 'POST',
+          body: formData
+        });
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.detail || `HTTP ${res.status}`);
+        }
+        renderResults(await res.json());
+      } catch (e) {
+        showError(e.message);
+        setLoading(false);
+      }
+    }
+
+    // ── RENDER RESULTS ────────────────────────────────────
+    function renderResults(data) {
+      setLoading(false);
+      hideError();
+      document.querySelector('.tabs').style.display = 'none';
+      document.querySelectorAll('.panel').forEach(p => p.style.display = 'none');
+      document.getElementById('results').style.display = 'block';
+
+      // Language badge
+      const langBadge = document.getElementById('detected-lang-badge');
+      const langLabel = document.getElementById('detected-lang');
+      if (data.language_detected && data.language_detected !== 'manual') {
+        langBadge.style.display = 'block';
+        langLabel.textContent = data.language_detected.toUpperCase();
+      } else {
+        langBadge.style.display = 'none';
+      }
+
+      const s = data.scores;
+
+      // Score cards
+      const grid = document.getElementById('score-grid');
+      grid.innerHTML = '';
+      const cats = [
+        { key: 'overall', label: 'Overall', cls: 'overall' },
+        { key: 'technical', label: 'Technical', cls: '' },
+        { key: 'problem_solving', label: 'Problem Solving', cls: '' },
+        { key: 'communication', label: 'Communication', cls: '' },
+        { key: 'confidence', label: 'Confidence', cls: '' },
+      ];
+      cats.forEach(c => {
+        const val = s[c.key] ?? 0;
+        grid.innerHTML += `
       <div class="score-card ${c.cls}">
         <div class="label">${c.label}</div>
         <div class="value" style="color:${scoreColor(val)}">${val}</div>
         <div style="font-size:.7rem;color:var(--muted);margin-top:4px;">/ 10</div>
       </div>`;
-  });
+      });
 
-  // Score bars
-  const bars = document.getElementById('score-bars');
-  bars.innerHTML = '';
-  ['technical','problem_solving','communication','confidence'].forEach(k => {
-    const v = s[k] ?? 0;
-    bars.innerHTML += `
+      // Score bars
+      const bars = document.getElementById('score-bars');
+      bars.innerHTML = '';
+      ['technical', 'problem_solving', 'communication', 'confidence'].forEach(k => {
+        const v = s[k] ?? 0;
+        bars.innerHTML += `
       <div class="score-bar">
-        <div class="bar-label">${k.replace('_',' ')}</div>
-        <div class="bar-track"><div class="bar-fill" style="width:0%;background:${scoreColor(v)}" data-target="${v*10}%"></div></div>
+        <div class="bar-label">${k.replace('_', ' ')}</div>
+        <div class="bar-track"><div class="bar-fill" style="width:0%;background:${scoreColor(v)}" data-target="${v * 10}%"></div></div>
         <div class="bar-val" style="color:${scoreColor(v)}">${v}</div>
       </div>`;
-  });
-  // Animate bars
-  setTimeout(() => {
-    document.querySelectorAll('.bar-fill').forEach(el => {
-      el.style.width = el.dataset.target;
-    });
-  }, 100);
+      });
+      // Animate bars
+      setTimeout(() => {
+        document.querySelectorAll('.bar-fill').forEach(el => {
+          el.style.width = el.dataset.target;
+        });
+      }, 100);
 
-  // Summary feedback
-  const sf = data.summary_feedback;
-  document.getElementById('summary-strengths').innerHTML = renderChips('✅ Strengths', sf.strengths || [], 'green');
-  document.getElementById('summary-mistakes').innerHTML  = renderChips('⚠️ Mistakes',  sf.mistakes  || [], 'red');
-  document.getElementById('summary-improvement').innerHTML =
-    sf.improvement ? `<div class="improvement-box">💡 ${sf.improvement}</div>` : '';
+      // Summary feedback
+      const sf = data.summary_feedback;
+      document.getElementById('summary-strengths').innerHTML = renderChips('✅ Strengths', sf.strengths || [], 'green');
+      document.getElementById('summary-mistakes').innerHTML = renderChips('⚠️ Mistakes', sf.mistakes || [], 'red');
+      document.getElementById('summary-improvement').innerHTML =
+        sf.improvement ? `<div class="improvement-box">💡 ${sf.improvement}</div>` : '';
 
-  // Q&A details
-  const list = document.getElementById('qa-list');
-  list.innerHTML = '';
-  (data.qa_details || []).forEach((qa, i) => {
-    const finalScore = qa.scores?.final ?? 0;
-    const el = document.createElement('div');
-    el.className = 'qa-block';
-    el.innerHTML = `
+      // Q&A details
+      const list = document.getElementById('qa-list');
+      list.innerHTML = '';
+      (data.qa_details || []).forEach((qa, i) => {
+        const finalScore = qa.scores?.final ?? 0;
+        const el = document.createElement('div');
+        el.className = 'qa-block';
+        el.innerHTML = `
       <div class="qa-header" onclick="toggleQA(this.parentElement)">
-        <span style="color:var(--muted);font-size:.8rem;flex-shrink:0">Q${i+1}</span>
+        <span style="color:var(--muted);font-size:.8rem;flex-shrink:0">Q${i + 1}</span>
         <div class="qa-q">${escHtml(qa.question)}</div>
         <span class="qa-badge" style="background:${scoreColor(finalScore)}22;color:${scoreColor(finalScore)};border:1px solid ${scoreColor(finalScore)}44">
           ${finalScore} / 10
@@ -940,7 +1173,7 @@ function renderResults(data) {
       <div class="qa-body">
         <div class="answer-box">${escHtml(qa.answer)}</div>
         ${renderChips('✅ Strengths', qa.feedback?.strengths || [], 'green')}
-        ${renderChips('⚠️ Mistakes',  qa.feedback?.mistakes  || [], 'red')}
+        ${renderChips('⚠️ Mistakes', qa.feedback?.mistakes || [], 'red')}
         ${qa.feedback?.correct_explanation ? `
           <div class="feedback-section">
             <h4>📘 Correct Explanation</h4>
@@ -949,54 +1182,55 @@ function renderResults(data) {
         ${qa.feedback?.improvement ? `
           <div class="improvement-box">💡 ${escHtml(qa.feedback.improvement)}</div>` : ''}
       </div>`;
-    list.appendChild(el);
-  });
-}
+        list.appendChild(el);
+      });
+    }
 
-function toggleQA(el) { el.classList.toggle('open'); }
+    function toggleQA(el) { el.classList.toggle('open'); }
 
-function renderChips(title, items, cls) {
-  if (!items?.length) return '';
-  const chips = items.map(i => `<span class="chip ${cls}">${escHtml(i)}</span>`).join('');
-  return `<div class="feedback-section"><h4>${title}</h4><div class="chip-list">${chips}</div></div>`;
-}
+    function renderChips(title, items, cls) {
+      if (!items?.length) return '';
+      const chips = items.map(i => `<span class="chip ${cls}">${escHtml(i)}</span>`).join('');
+      return `<div class="feedback-section"><h4>${title}</h4><div class="chip-list">${chips}</div></div>`;
+    }
 
-function scoreColor(v) {
-  if (v >= 8) return '#00d4aa';
-  if (v >= 6) return '#6c63ff';
-  if (v >= 4) return '#ffc94a';
-  return '#ff5f7e';
-}
+    function scoreColor(v) {
+      if (v >= 8) return '#00d4aa';
+      if (v >= 6) return '#6c63ff';
+      if (v >= 4) return '#ffc94a';
+      return '#ff5f7e';
+    }
 
-function escHtml(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
+    function escHtml(s) {
+      return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
 
-// ── UI STATE ─────────────────────────────────────────
-function setLoading(show, msg) {
-  document.getElementById('loading').style.display = show ? 'block' : 'none';
-  if (msg) document.getElementById('loading-step').textContent = msg;
-  ['btn-t','btn-a'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.disabled = show;
-  });
-}
-function showError(msg) {
-  const el = document.getElementById('error-box');
-  el.style.display = 'block';
-  el.innerHTML = '❌ ' + msg;
-}
-function hideError() { document.getElementById('error-box').style.display = 'none'; }
-function resetUI() {
-  document.getElementById('results').style.display = 'none';
-  document.querySelector('.tabs').style.display = 'flex';
-  document.querySelectorAll('.panel').forEach(p => p.style.display = '');
-  document.getElementById('panel-transcript').classList.add('active');
-  document.getElementById('panel-audio').classList.remove('active');
-  document.getElementById('tab-transcript').classList.add('active');
-  document.getElementById('tab-audio').classList.remove('active');
-  hideError();
-}
-</script>
+    // ── UI STATE ─────────────────────────────────────────
+    function setLoading(show, msg) {
+      document.getElementById('loading').style.display = show ? 'block' : 'none';
+      if (msg) document.getElementById('loading-step').textContent = msg;
+      ['btn-t', 'btn-a'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.disabled = show;
+      });
+    }
+    function showError(msg) {
+      const el = document.getElementById('error-box');
+      el.style.display = 'block';
+      el.innerHTML = '❌ ' + msg;
+    }
+    function hideError() { document.getElementById('error-box').style.display = 'none'; }
+    function resetUI() {
+      document.getElementById('results').style.display = 'none';
+      document.querySelector('.tabs').style.display = 'flex';
+      document.querySelectorAll('.panel').forEach(p => p.style.display = '');
+      document.getElementById('panel-transcript').classList.add('active');
+      document.getElementById('panel-audio').classList.remove('active');
+      document.getElementById('tab-transcript').classList.add('active');
+      document.getElementById('tab-audio').classList.remove('active');
+      hideError();
+    }
+  </script>
 </body>
+
 </html>
