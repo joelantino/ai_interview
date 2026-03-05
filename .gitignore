@@ -1,0 +1,6 @@
+.env
+.venv/
+py311/
+__pycache__/
+*.pyc
+data/audio/
